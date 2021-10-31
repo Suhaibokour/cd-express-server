@@ -5,6 +5,7 @@ const app=express();
 const PORT=process.env.PORT || 3000;
 require('dotenv').config();
 const stamper = require('./middleware/stamper');
+const notFoundHandler = require('./handlers/404');
 
 
 
@@ -27,12 +28,7 @@ app.get('/data',stamper,(req,res)=>{
 //     next('you have made an erorr')
 // })
 
-app.use('*',(req,res)=>{
-    res.status(404).send({
-        erorr:404,
-        message:"path not found"
-    })
-});
+app.use('*',notFoundHandler);
 
 
 function start(){
